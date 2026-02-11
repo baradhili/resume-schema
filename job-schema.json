@@ -1,40 +1,52 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"additionalProperties": true,
+	"additionalProperties": false,
 	"definitions": {
 		"iso8601": {
 			"type": "string",
-			"description": "Similar to the standard date type, but each section after the year is optional. e.g. 2014-06-29 or 2023-04",
+			"description": "Similar to the standard date type, but each section after the year is optional. e.g. 2014-06-29 or 2023-0.",
 			"pattern": "^([1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]|[1-2][0-9]{3}-[0-1][0-9]|[1-2][0-9]{3})$"
+		},
+		"masteryLevel": {
+			"type": "string",
+			"description": "One of five mastery levels for a particular skill.",
+			"enum": [
+				"Novice",
+				"Intermediate",
+				"Advanced",
+				"Expert",
+				"Master"
+			]
 		}
 	},
 	"properties": {
 		"title": {
 			"type": "string",
-			"description": "e.g. Web Developer"
+			"description": "The name of the job, e.g. 'Web Developer'."
 		},
 		"company": {
 			"type": "string",
-			"description": "Microsoft"
+			"description": "The company offering the role, e.g. 'Microsoft'."
 		},
 		"type": {
 			"type": "string",
-			"description": "Full-time, part-time, contract, etc."
+			"description": "The type of job this is, e.g. Full-time, part-time, contract, etc."
 		},
 		"date": {
+			"description": "The date the job was posted in ISO8601 format.",
 			"$ref": "#/definitions/iso8601"
 		},
 		"description": {
 			"type": "string",
-			"description": "Write a short description about the job"
+			"description": "A short description about the job."
 		},
 		"location": {
 			"type": "object",
-			"additionalProperties": true,
+			"description": "Where the job is located. For fully remote jobs, simply fill in the country code of the position and leave the other fields as `null`.",
+			"additionalProperties": false,
 			"properties": {
 				"address": {
-					"type": "string",
-					"description": "To add multiple address lines, use \\n. For example, 1234 Glücklichkeit Straße\\nHinterhaus 5. Etage li."
+					"type": "string"
 				},
 				"postalCode": {
 					"type": "string"
@@ -44,17 +56,17 @@
 				},
 				"countryCode": {
 					"type": "string",
-					"description": "code as per ISO-3166-1 ALPHA-2, e.g. US, AU, IN"
+					"description": "Code as per ISO-3166-1 ALPHA-2, e.g. US, AU, IN."
 				},
 				"region": {
 					"type": "string",
-					"description": "The general region where you live. Can be a US state, or a province, for instance."
+					"description": "The general region where the job is. Can be a US state or a province."
 				}
 			}
 		},
 		"remote": {
 			"type": "string",
-			"description": "the level of remote work available",
+			"description": "The level of remote work available, where 'Full' is fully online and 'None' is strictly in-person.",
 			"enum": [
 				"Full",
 				"Hybrid",
@@ -63,15 +75,25 @@
 		},
 		"salary": {
 			"type": "string",
-			"description": "100000"
+			"description": "The expected salary or range of salaries plus the base time unit, e.g. $100,000/yearly, $5,000 - $6,000/monthly, $25/hourly."
 		},
 		"experience": {
 			"type": "string",
-			"description": "Senior or Junior or Mid-level"
+			"description": "The experience level required for the job, e.g. 'Senior', 'Junior', 'Mid-level'.",
+			"enum": [
+				"Internship",
+				"Entry-level",
+				"Junior",
+				"Mid-level",
+				"Senior",
+				"Lead",
+				"Director",
+				"Executive"
+			]
 		},
 		"responsibilities": {
 			"type": "array",
-			"description": "what the job entails",
+			"description": "What the job entails.",
 			"additionalItems": false,
 			"items": {
 				"type": "string",
@@ -80,32 +102,41 @@
 		},
 		"qualifications": {
 			"type": "array",
-			"description": "List out your qualifications",
+			"description": "A list of the qualifications that are required for this position.",
 			"additionalItems": false,
 			"items": {
 				"type": "string",
-				"description": "undergraduate degree, etc.  "
+				"description": "The required qualification, e.g. 'undergraduate degree'."
+			}
+		},
+		"optionalQualifications": {
+			"type": "array",
+			"description": "A list of the qualifications that are optional for this position.",
+			"additionalItems": false,
+			"items": {
+				"type": "string",
+				"description": "The optional qualification, e.g. 'undergraduate degree'."
 			}
 		},
 		"skills": {
 			"type": "array",
-			"description": "List out your professional skill-set",
+			"description": "A list of the skills utilized while doing work for the job.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"name": {
 						"type": "string",
-						"description": "e.g. Web Development"
+						"description": "The name of the skill, e.g. 'Web Development'."
 					},
 					"level": {
-						"type": "string",
-						"description": "e.g. Master"
+						"description": "The mastery level of the skill.",
+						"$ref": "#/definitions/masteryLevel"
 					},
 					"keywords": {
 						"type": "array",
-						"description": "List some keywords pertaining to this skill",
+						"description": "Keywords pertaining to this skill.",
 						"additionalItems": false,
 						"items": {
 							"type": "string",
@@ -117,21 +148,21 @@
 		},
 		"meta": {
 			"type": "object",
-			"description": "The schema version and any other tooling configuration lives here",
-			"additionalProperties": true,
+			"description": "The schema version and any other tooling configuration lives here.",
+			"additionalProperties": false,
 			"properties": {
 				"canonical": {
 					"type": "string",
-					"description": "URL (as per RFC 3986) to latest version of this document",
+					"description": "URL (as per RFC 3986) to latest version of this document.",
 					"format": "uri"
 				},
 				"version": {
 					"type": "string",
-					"description": "A version field which follows semver - e.g. v1.0.0"
+					"description": "A version field which follows semver - e.g. v1.0.0."
 				},
 				"lastModified": {
 					"type": "string",
-					"description": "Using ISO 8601 with YYYY-MM-DDThh:mm:ss"
+					"description": "Using ISO 8601 with 'YYYY-MM-DDThh:mm:ss'."
 				}
 			}
 		}
