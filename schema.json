@@ -1,6 +1,9 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "http://example.com/example.json",
+	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/schema.json",
+	"title": "Resume Schema",
+	"version": "2.0.0",
+	"type": "object",
 	"additionalProperties": true,
 	"definitions": {
 		"iso8601": {
@@ -493,7 +496,5 @@
 				}
 			}
 		}
-	},
-	"title": "Resume Schema",
-	"type": "object"
+	}
 }
