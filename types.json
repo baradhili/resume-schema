@@ -1,0 +1,48 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/types.json#",
+	"definitions": {
+		"experienceLevel": {
+			"type": "string",
+			"description": "The experience level of a position or candidate.",
+			"enum": [
+				"Internship",
+				"Entry-level",
+				"Junior",
+				"Mid-level",
+				"Senior",
+				"Lead",
+				"Director",
+				"Executive"
+			]
+		},
+		"iso8601": {
+			"type": "string",
+			"description": "Similar to the standard date type, but each section after the year is optional. e.g. 2014-06-29 or 2023-04.",
+			"pattern": "^([1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]|[1-2][0-9]{3}-[0-1][0-9]|[1-2][0-9]{3})$"
+		},
+		"jobType": {
+			"type": "string",
+			"description": "The type of job this is, e.g. Full-time, part-time, contract, etc.",
+			"enum": [
+				"Part-Time",
+				"Full-Time",
+				"Seasonal",
+				"On-Demand",
+				"Contract",
+				"Unspecified"
+			]
+		},
+		"masteryLevel": {
+			"type": "string",
+			"description": "One of five mastery levels for a particular skill.",
+			"enum": [
+				"Novice",
+				"Intermediate",
+				"Advanced",
+				"Expert",
+				"Master"
+			]
+		}
+	}
+}

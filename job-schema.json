@@ -1,28 +1,10 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/job-schema.json",
+	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/job-schema.json#",
 	"title": "Job Description Schema",
 	"version": "2.0.0",
 	"type": "object",
 	"additionalProperties": false,
-	"definitions": {
-		"iso8601": {
-			"type": "string",
-			"description": "Similar to the standard date type, but each section after the year is optional. e.g. 2014-06-29 or 2023-0.",
-			"pattern": "^([1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]|[1-2][0-9]{3}-[0-1][0-9]|[1-2][0-9]{3})$"
-		},
-		"masteryLevel": {
-			"type": "string",
-			"description": "One of five mastery levels for a particular skill.",
-			"enum": [
-				"Novice",
-				"Intermediate",
-				"Advanced",
-				"Expert",
-				"Master"
-			]
-		}
-	},
 	"properties": {
 		"title": {
 			"type": "string",
@@ -33,20 +15,12 @@
 			"description": "The company offering the role, e.g. 'Microsoft'."
 		},
 		"type": {
-			"type": "string",
 			"description": "The type of job this is, e.g. Full-time, part-time, contract, etc.",
-			"enum": [
-				"Part-Time",
-				"Full-Time",
-				"Seasonal",
-				"On-Demand",
-				"Contract",
-				"Unspecified"
-			]
+			"$ref": "types.json#/definitions/jobType"
 		},
 		"date": {
 			"description": "The date the job was posted in ISO8601 format.",
-			"$ref": "#/definitions/iso8601"
+			"$ref": "types.json#/definitions/iso8601"
 		},
 		"description": {
 			"type": "string",
@@ -90,18 +64,8 @@
 			"description": "The expected salary or range of salaries plus the base time unit, e.g. $100,000/yearly, $5,000 - $6,000/monthly, $25/hourly."
 		},
 		"experience": {
-			"type": "string",
 			"description": "The experience level required for the job, e.g. 'Senior', 'Junior', 'Mid-level'.",
-			"enum": [
-				"Internship",
-				"Entry-level",
-				"Junior",
-				"Mid-level",
-				"Senior",
-				"Lead",
-				"Director",
-				"Executive"
-			]
+			"$ref": "types.json#/definitions/experienceLevel"
 		},
 		"responsibilities": {
 			"type": "array",
@@ -144,7 +108,7 @@
 					},
 					"level": {
 						"description": "The mastery level of the skill.",
-						"$ref": "#/definitions/masteryLevel"
+						"$ref": "types.json#/definitions/masteryLevel"
 					},
 					"keywords": {
 						"type": "array",
