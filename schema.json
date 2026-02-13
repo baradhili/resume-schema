@@ -1,17 +1,10 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/schema.json",
+	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/schema.json#",
 	"title": "Resume Schema",
 	"version": "2.0.0",
 	"type": "object",
 	"additionalProperties": true,
-	"definitions": {
-		"iso8601": {
-			"type": "string",
-			"description": "Similar to the standard date type, but each section after the year is optional. e.g. 2014-06-29 or 2023-04",
-			"pattern": "^([1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]|[1-2][0-9]{3}-[0-1][0-9]|[1-2][0-9]{3})$"
-		}
-	},
 	"properties": {
 		"$schema": {
 			"type": "string",
@@ -130,10 +123,10 @@
 						"format": "uri"
 					},
 					"startDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"summary": {
 						"type": "string",
@@ -172,10 +165,10 @@
 						"format": "uri"
 					},
 					"startDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"summary": {
 						"type": "string",
@@ -218,10 +211,10 @@
 						"description": "e.g. Bachelor"
 					},
 					"startDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"score": {
 						"type": "string",
@@ -252,7 +245,7 @@
 						"description": "e.g. One of the 100 greatest minds of the century"
 					},
 					"date": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"awarder": {
 						"type": "string",
@@ -278,7 +271,7 @@
 						"description": "e.g. Certified Kubernetes Administrator"
 					},
 					"date": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"url": {
 						"type": "string",
@@ -309,7 +302,7 @@
 						"description": "e.g. IEEE, Computer Magazine"
 					},
 					"releaseDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"url": {
 						"type": "string",
@@ -446,10 +439,10 @@
 						}
 					},
 					"startDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
-						"$ref": "#/definitions/iso8601"
+						"$ref": "types.json#/definitions/iso8601"
 					},
 					"url": {
 						"type": "string",
