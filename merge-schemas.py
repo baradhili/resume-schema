@@ -21,8 +21,21 @@ def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
 
 	types_filename: str = os.path.basename(types_file)
 
+	# Get the schema versions between both files and ensure they line up
+	types_schema_ver = str(types_schema.get("$schema", ""))
+	schema_ver = str(schema.get("$schema", ""))
+	if types_schema_ver != schema_ver:
+		print(f"Error: Schema version mismatch between '{schema_file}' and '{types_file}'", file=sys.stderr)
+		exit(1)
+
+	# Pick the correct key name for definitons (draft-2020-12 uses `$defs` instead of `definitions`)
+	# It is safe to assume the version from either schema file since we just verified equality
+	def_keyname = "definitions"
+	if "draft/2020-12/schema" in types_schema_ver:
+		def_keyname = "$defs"
+
 	# Extract ALL definitions from types
-	all_defs: dict[str, Any] = types_schema.get("definitions", {})
+	all_defs: dict[str, Any] = types_schema.get(def_keyname, {})
 
 	# Find ALL $ref values used in schema
 	used_refs: set[str] = set()
@@ -32,8 +45,8 @@ def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
 			if "$ref" in obj:
 				ref_val = obj["$ref"]
 				if isinstance(ref_val, str):
-					if ref_val.startswith(f"{types_filename}#/definitions/"):
-						def_name: str = ref_val[len(f"{types_filename}#/definitions/"):]
+					if ref_val.startswith(f"{types_filename}#/{def_keyname}/"):
+						def_name: str = ref_val[len(f"{types_filename}#/{def_keyname}/"):]
 						used_refs.add(def_name)
 
 			for value in obj.values():
@@ -51,10 +64,10 @@ def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
 	}
 
 	# Merge ONLY used definitions into schema
-	if "definitions" in schema:
-		del schema["definitions"]  # type: ignore
+	if def_keyname in schema:
+		del schema[def_keyname]  # type: ignore
 
-	schema["definitions"] = used_defs  # type: ignore
+	schema[def_keyname] = used_defs  # type: ignore
 
 	# Fix all external refs to internal refs
 	def fix_refs(obj: Any) -> Any:
@@ -62,8 +75,8 @@ def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
 			if "$ref" in obj:
 				ref_val = obj["$ref"]
 				if isinstance(ref_val, str):
-					if ref_val.startswith(f"{types_filename}#/definitions/"):
-						obj["$ref"] = "#/definitions/" + ref_val[len(f"{types_filename}#/definitions/"):]  # type: ignore
+					if ref_val.startswith(f"{types_filename}#/{def_keyname}/"):
+						obj["$ref"] = f"#/{def_keyname}/" + ref_val[len(f"{types_filename}#/{def_keyname}/"):]  # type: ignore
 			for key, value in obj.items():
 				obj[key] = fix_refs(value)  # type: ignore
 			return obj
