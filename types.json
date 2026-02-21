@@ -87,7 +87,8 @@
 				},
 				"version": {
 					"type": "string",
-					"description": "A version field which follows semver - e.g. v1.0.0"
+					"description": "A version field which follows semver - e.g. `1.0.0`. Regexp is per the recommendation of semver.org",
+					"pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
 				},
 				"lastModified": {
 					"type": "string",
