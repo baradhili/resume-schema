@@ -1,6 +1,6 @@
 {
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/job-schema.json#",
+	"$schema": "https://json-schema.org/draft-07/schema",
+	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/job-schema.json",
 	"title": "Job Description Schema",
 	"version": "2.0.0",
 	"type": "object",

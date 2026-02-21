@@ -4,12 +4,23 @@
 # pyright: reportExplicitAny=false
 # pyright: reportUnknownVariableType=false
 
+from dataclasses import dataclass
 from typing import Any
 import json
 import os
 import sys
+import argparse
 
-def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
+__DEFS_KEYNAME_OLD = "definitions"
+__DEFS_KEYNAME_NEW = "$defs"
+
+@dataclass
+class Options:
+	"""Configuration options for schema merging."""
+	use_tabs: bool = True
+	force_defs_syntax: bool = False
+
+def merge_schemas(types_file: str, schema_file: str, force_defs_syntax: bool) -> dict[str, Any]:
 	"""Merge types.json definitions into schema.json, including only used refs."""
 
 	# Load files
@@ -28,11 +39,16 @@ def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
 		print(f"Error: Schema version mismatch between '{schema_file}' and '{types_file}'", file=sys.stderr)
 		exit(1)
 
-	# Pick the correct key name for definitons (draft-2020-12 uses `$defs` instead of `definitions`)
-	# It is safe to assume the version from either schema file since we just verified equality
-	def_keyname = "definitions"
+	# Pick the correct key name for definitions (draft-2020-12 uses `$defs` instead of `definitions`)
+	def_keyname = __DEFS_KEYNAME_OLD
+	def_out_keyname = __DEFS_KEYNAME_OLD
 	if "draft/2020-12/schema" in types_schema_ver:
-		def_keyname = "$defs"
+		def_keyname = __DEFS_KEYNAME_NEW
+		def_out_keyname = __DEFS_KEYNAME_NEW
+
+	# If forcing the use of $defs, set the out keyname accordingly
+	if force_defs_syntax:
+		def_out_keyname = __DEFS_KEYNAME_NEW
 
 	# Extract ALL definitions from types
 	all_defs: dict[str, Any] = types_schema.get(def_keyname, {})
@@ -65,9 +81,9 @@ def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
 
 	# Merge ONLY used definitions into schema
 	if def_keyname in schema:
-		del schema[def_keyname]  # type: ignore
+		del schema[def_keyname]
 
-	schema[def_keyname] = used_defs  # type: ignore
+	schema[def_out_keyname] = used_defs
 
 	# Fix all external refs to internal refs
 	def fix_refs(obj: Any) -> Any:
@@ -76,9 +92,9 @@ def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
 				ref_val = obj["$ref"]
 				if isinstance(ref_val, str):
 					if ref_val.startswith(f"{types_filename}#/{def_keyname}/"):
-						obj["$ref"] = f"#/{def_keyname}/" + ref_val[len(f"{types_filename}#/{def_keyname}/"):]  # type: ignore
+						obj["$ref"] = f"#/{def_out_keyname}/" + ref_val[len(f"{types_filename}#/{def_keyname}/"):]
 			for key, value in obj.items():
-				obj[key] = fix_refs(value)  # type: ignore
+				obj[key] = fix_refs(value)
 			return obj
 
 		elif isinstance(obj, list):
@@ -87,23 +103,55 @@ def merge_schemas(types_file: str, schema_file: str) -> dict[str, Any]:
 		return obj
 
 	fix_refs(schema)
+
+	# If forcing the use of $defs, correct the version identifier to match; basic replacement, might be better to use patterns instead
+	if force_defs_syntax:
+		schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
+
 	return schema
 
 
 ## Main
 if __name__ == "__main__":
-	USE_TABS = True
+	# Setup default options
+	opts = Options()
 
-	# Perform argparsing
-	if len(sys.argv) < 3:
-		print(f"Usage: {sys.argv[0]} TYPES.json SCHEMA.json", file=sys.stderr)
-		sys.exit(1)
+	# Setup argument parser with both positional arguments and optional flags
+	parser = argparse.ArgumentParser(
+		description="Merge types.json definitions into schema.json, including only used refs."
+	)
 
-	# Merge and output
-	schema = merge_schemas(sys.argv[1], sys.argv[2])
+	# Add positional arguments (required)
+	parser.add_argument("types_file", help="Path to the TYPES.json file")
+	parser.add_argument("schema_file", help="Path to the SCHEMA.json file")
+
+	# Add optional flag for tab indentation
+	parser.add_argument(
+		"--use-tabs",
+		action="store_true",
+		help="Use tabs instead of spaces for indentation in output"
+	)
+
+	# Add optional flag for forcing $defs syntax for $refs
+	parser.add_argument(
+		"--force-defs-syntax",
+		action="store_true",
+		help="Force the usage of `$defs` over the old `definitions` syntax"
+	)
+
+	# Parse arguments
+	args = parser.parse_args()
+
+	# Override defaults with command line arguments if provided
+	opts.use_tabs = args.use_tabs or opts.use_tabs
+	opts.force_defs_syntax = args.force_defs_syntax or opts.force_defs_syntax
+
+	# Merge the schemas
+	schema = merge_schemas(args.types_file, args.schema_file, opts.force_defs_syntax)
 	jsons = json.dumps(schema, indent=4)
 
-	if USE_TABS:
-		print(jsons.replace(" " * 4, "\t"))
-	else:
-		print(jsons)
+	# Apply options
+	if opts.use_tabs:
+		jsons = jsons.replace(" " * 4, "\t")
+
+	print(jsons)
