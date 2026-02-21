@@ -27,28 +27,8 @@
 			"description": "A short description about the job."
 		},
 		"location": {
-			"type": "object",
 			"description": "Where the job is located. For fully remote jobs, simply fill in the country code of the position and leave the other fields as `null`.",
-			"additionalProperties": false,
-			"properties": {
-				"address": {
-					"type": "string"
-				},
-				"postalCode": {
-					"type": "string"
-				},
-				"city": {
-					"type": "string"
-				},
-				"countryCode": {
-					"type": "string",
-					"description": "Code as per ISO-3166-1 ALPHA-2, e.g. US, AU, IN."
-				},
-				"region": {
-					"type": "string",
-					"description": "The general region where the job is. Can be a US state or a province."
-				}
-			}
+			"$ref": "types.json#/definitions/location"
 		},
 		"remote": {
 			"type": "string",

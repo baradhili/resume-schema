@@ -2,7 +2,7 @@
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/types.json#",
 	"title": "Job-Resume Typedefs Schema",
-	"version": "2.0.0",
+	"version": "v2.0.0",
 	"type": "object",
 	"additionalProperties": false,
 	"definitions": {
@@ -36,6 +36,33 @@
 				"Contract",
 				"Unspecified"
 			]
+		},
+		"location": {
+			"type": "object",
+			"description": "A location in the world. Can be a full address, a partial address, or simply a listing of the country and region.",
+			"additionalProperties": false,
+			"properties": {
+				"address": {
+					"type": "string",
+					"description": "The street name and number components of the location."
+				},
+				"postalCode": {
+					"type": "string",
+					"description": "Also known as a zip code for US addresses."
+				},
+				"city": {
+					"type": "string"
+				},
+				"countryCode": {
+					"type": "string",
+					"description": "Country code as per ISO-3166-1 ALPHA-2, e.g. US, AU, IN.",
+					"pattern": "[A-Z]{2}"
+				},
+				"region": {
+					"type": "string",
+					"description": "Can be a state, province, prefecture, oblast, etc."
+				}
+			}
 		},
 		"masteryLevel": {
 			"type": "string",
