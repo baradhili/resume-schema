@@ -91,13 +91,8 @@
 						"$ref": "types.json#/definitions/masteryLevel"
 					},
 					"keywords": {
-						"type": "array",
-						"description": "Keywords pertaining to this skill.",
-						"additionalItems": false,
-						"items": {
-							"type": "string",
-							"description": "e.g. HTML"
-						}
+						"description": "A list of keywords pertaining to this skill.",
+						"$ref": "types.json#/definitions/keywords"
 					}
 				}
 			}
