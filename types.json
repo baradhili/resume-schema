@@ -37,6 +37,15 @@
 				"Unspecified"
 			]
 		},
+		"keywords": {
+			"type": "array",
+			"description": "A list of keywords that are related to the parent object. Due to the nature of being keywords, the items within may have aliases attached. However, each item should appear ONCE and matched on using a separate dictionary to keep this array as slim as possible.",
+			"additionalItems": false,
+			"items": {
+				"type": "string",
+				"description": "e.g. HTML"
+			}
+		},
 		"location": {
 			"type": "object",
 			"description": "A location in the world. Can be a full address, a partial address, or simply a listing of the country and region.",
@@ -82,7 +91,7 @@
 			"properties": {
 				"canonical": {
 					"type": "string",
-					"description": "URL (as per RFC 3986) to latest version of this document",
+					"description": "URL (as per RFC 3986) to latest version of this document.",
 					"format": "uri"
 				},
 				"version": {
@@ -92,7 +101,7 @@
 				},
 				"lastModified": {
 					"type": "string",
-					"description": "Using ISO 8601 with YYYY-MM-DDThh:mm:ss",	
+					"description": "Using ISO 8601 with 'YYYY-MM-DDThh:mm:ss'.",
 					"format": "date-time"
 				}
 			}

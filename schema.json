@@ -1,93 +1,61 @@
 {
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/schema.json#",
+	"$schema": "https://json-schema.org/draft-07/schema",
+	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/schema.json",
 	"title": "Resume Schema",
 	"version": "2.0.0",
 	"type": "object",
-	"additionalProperties": true,
+	"additionalProperties": false,
 	"properties": {
-		"$schema": {
-			"type": "string",
-			"description": "link to the version of the schema that can validate the resume",
-			"format": "uri"
-		},
 		"basics": {
 			"type": "object",
-			"additionalProperties": true,
+			"additionalProperties": false,
 			"properties": {
 				"name": {
-					"type": "string"
+					"type": "string",
+					"description": "The name of the resume's subject."
 				},
 				"label": {
 					"type": "string",
-					"description": "e.g. Web Developer"
+					"description": "The subject's professional title, e.g. Web Developer."
 				},
 				"image": {
 					"type": "string",
-					"description": "URL (as per RFC 3986) to a image in JPEG or PNG format"
+					"description": "URL (as per RFC 3986) to a image in JPEG or PNG format.",
+					"format": "uri"
 				},
 				"email": {
 					"type": "string",
-					"description": "e.g. thomas@gmail.com",
+					"description": "The subject's email address, e.g. thomas@gmail.com",
 					"format": "email"
 				},
 				"phone": {
 					"type": "string",
-					"description": "Phone numbers are stored as strings so use any format you like, e.g. 712-117-2923"
-				},
-				"url": {
-					"type": "string",
-					"description": "URL (as per RFC 3986) to your website, e.g. personal homepage",
-					"format": "uri"
+					"description": "The contact phone number of the subject.Phone numbers are stored as strings so use any format you like, e.g. 712-117-2923."
 				},
 				"summary": {
 					"type": "string",
-					"description": "Write a short 2-3 sentence biography about yourself"
+					"description": "Write a short 2-3 sentence biography about yourself."
 				},
 				"location": {
-					"type": "object",
-					"additionalProperties": true,
-					"properties": {
-						"address": {
-							"type": "string",
-							"description": "To add multiple address lines, use \n. For example, 1234 Glücklichkeit Straße\nHinterhaus 5. Etage li."
-						},
-						"postalCode": {
-							"type": "string"
-						},
-						"city": {
-							"type": "string"
-						},
-						"countryCode": {
-							"type": "string",
-							"description": "code as per ISO-3166-1 ALPHA-2, e.g. US, AU, IN"
-						},
-						"region": {
-							"type": "string",
-							"description": "The general region where you live. Can be a US state, or a province, for instance."
-						}
-					}
+					"description": "Where the subject is from. Can be a general region or their exact home address.",
+					"$ref": "types.json#/definitions/location"
 				},
-				"profiles": {
+				"links": {
 					"type": "array",
-					"description": "Specify any number of social networks that you participate in",
+					"description": "A list of web links relevant to the subject, e.g. personal website, social media, portfolios, etc.",
 					"additionalItems": false,
 					"items": {
 						"type": "object",
-						"additionalProperties": true,
+						"additionalProperties": false,
 						"properties": {
-							"network": {
-								"type": "string",
-								"description": "e.g. Facebook or Twitter"
-							},
-							"username": {
-								"type": "string",
-								"description": "e.g. neutralthoughts"
-							},
 							"url": {
 								"type": "string",
-								"description": "e.g. http://twitter.example.com/neutralthoughts",
+								"description": "e.g. https://github.com/johndoe",
 								"format": "uri"
+							},
+							"label": {
+								"type": "string",
+								"description": "The label for the hyperlink, e.g. '@johndoe'."
 							}
 						}
 					}
@@ -99,7 +67,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"name": {
 						"type": "string",
@@ -149,7 +117,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"organization": {
 						"type": "string",
@@ -191,7 +159,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"institution": {
 						"type": "string",
@@ -238,7 +206,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"title": {
 						"type": "string",
@@ -264,7 +232,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"name": {
 						"type": "string",
@@ -291,7 +259,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"name": {
 						"type": "string",
@@ -322,7 +290,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"name": {
 						"type": "string",
@@ -333,13 +301,8 @@
 						"description": "e.g. Master"
 					},
 					"keywords": {
-						"type": "array",
-						"description": "List some keywords pertaining to this skill",
-						"additionalItems": false,
-						"items": {
-							"type": "string",
-							"description": "e.g. HTML"
-						}
+						"description": "A list of keywords pertaining to this skill.",
+						"$ref": "types.json#/definitions/keywords"
 					}
 				}
 			}
@@ -350,7 +313,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"language": {
 						"type": "string",
@@ -368,19 +331,15 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"name": {
 						"type": "string",
 						"description": "e.g. Philosophy"
 					},
 					"keywords": {
-						"type": "array",
-						"additionalItems": false,
-						"items": {
-							"type": "string",
-							"description": "e.g. Friedrich Nietzsche"
-						}
+						"description": "A list of keywords pertaining to this interest.",
+						"$ref": "types.json#/definitions/keywords"
 					}
 				}
 			}
@@ -391,7 +350,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"name": {
 						"type": "string",
@@ -410,7 +369,7 @@
 			"additionalItems": false,
 			"items": {
 				"type": "object",
-				"additionalProperties": true,
+				"additionalProperties": false,
 				"properties": {
 					"name": {
 						"type": "string",
@@ -430,13 +389,8 @@
 						}
 					},
 					"keywords": {
-						"type": "array",
-						"description": "Specify special elements involved",
-						"additionalItems": false,
-						"items": {
-							"type": "string",
-							"description": "e.g. AngularJS"
-						}
+						"description": "A list of keywords pertaining to this project.",
+						"$ref": "types.json#/definitions/keywords"
 					},
 					"startDate": {
 						"$ref": "types.json#/definitions/iso8601"
@@ -470,24 +424,10 @@
 			}
 		},
 		"meta": {
-			"type": "object",
-			"description": "The schema version and any other tooling configuration lives here",
-			"additionalProperties": true,
-			"properties": {
-				"canonical": {
-					"type": "string",
-					"description": "URL (as per RFC 3986) to latest version of this document",
-					"format": "uri"
-				},
-				"version": {
-					"type": "string",
-					"description": "A version field which follows semver - e.g. v1.0.0"
-				},
-				"lastModified": {
-					"type": "string",
-					"description": "Using ISO 8601 with YYYY-MM-DDThh:mm:ss"
-				}
-			}
+			"$ref": "types.json#/definitions/meta"
 		}
-	}
+	},
+	"required": [
+		"meta"
+	]
 }
