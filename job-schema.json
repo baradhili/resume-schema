@@ -74,6 +74,10 @@
 				"description": "The optional qualification, e.g. 'undergraduate degree'."
 			}
 		},
+		"keywords": {
+			"description": "A list of keywords pertaining to the listing; sourced from the qualifications (required and optional), job description, and responsibilities.",
+			"$ref": "types.json#/definitions/keywords"
+		},
 		"skills": {
 			"type": "array",
 			"description": "A list of the skills utilized while doing work for the job.",
@@ -91,7 +95,7 @@
 						"$ref": "types.json#/definitions/masteryLevel"
 					},
 					"keywords": {
-						"description": "A list of keywords pertaining to this skill.",
+						"description": "A list of keywords pertaining to this specific skill.",
 						"$ref": "types.json#/definitions/keywords"
 					}
 				}
