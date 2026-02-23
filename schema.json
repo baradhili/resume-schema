@@ -25,16 +25,16 @@
 				},
 				"email": {
 					"type": "string",
-					"description": "The subject's email address, e.g. thomas@gmail.com",
+					"description": "The subject's email address, e.g. 'thomas@gmail.com'.",
 					"format": "email"
 				},
 				"phone": {
 					"type": "string",
-					"description": "The contact phone number of the subject.Phone numbers are stored as strings so use any format you like, e.g. 712-117-2923."
+					"description": "The contact phone number of the subject. Phone numbers are stored as strings so use any format preferred, e.g.'712-117-2923'."
 				},
 				"summary": {
 					"type": "string",
-					"description": "Write a short 2-3 sentence biography about yourself."
+					"description": "A short 2-3 sentence biography about the subject."
 				},
 				"location": {
 					"description": "Where the subject is from. Can be a general region or their exact home address.",
@@ -69,45 +69,51 @@
 				"type": "object",
 				"additionalProperties": false,
 				"properties": {
-					"name": {
+					"employer": {
 						"type": "string",
-						"description": "e.g. Facebook"
+						"description": "The name of the company, e.g. 'Facebook'."
 					},
 					"location": {
 						"type": "string",
-						"description": "e.g. Menlo Park, CA"
+						"description": "The location the job is/was, e.g. 'Menlo Park, CA'. If the job is/was remote, specify 'Remote'."
 					},
 					"description": {
 						"type": "string",
-						"description": "e.g. Social Media Company"
+						"description": "A short, 1 sentence maximum description of the company, e.g. 'Social Media Company'."
 					},
 					"position": {
 						"type": "string",
-						"description": "e.g. Software Engineer"
+						"description": "The title of the role, e.g. 'Software Engineer'."
 					},
 					"url": {
 						"type": "string",
-						"description": "e.g. http://facebook.example.com",
+						"description": "The relevant URL of the company's homepage, e.g. 'http://facebook.example.com'.",
 						"format": "uri"
 					},
 					"startDate": {
+						"description": "The date on which this position was started.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
+						"description": "The date on which this position was stopped. If this job is ongoing, specify 'Present' as the value for this key.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"summary": {
 						"type": "string",
-						"description": "Give an overview of your responsibilities at the company"
+						"description": "An overview of the responsibilities at the company. No more than 3-5 sentences."
 					},
 					"highlights": {
 						"type": "array",
-						"description": "Specify multiple accomplishments",
+						"description": "A list of the key highlights of the volunteer role. For best results, use the XYZ formula with quantifiable attributes.",
 						"additionalItems": false,
 						"items": {
 							"type": "string",
-							"description": "e.g. Increased profits by 20% from 2011-2012 through viral advertising"
+							"description": "e.g. Increased profits by 20% from 2011-2012 through viral advertising."
 						}
+					},
+					"keywords": {
+						"description": "A list of keywords pertaining to this job position.",
+						"$ref": "types.json#/definitions/keywords"
 					}
 				}
 			}
@@ -121,35 +127,41 @@
 				"properties": {
 					"organization": {
 						"type": "string",
-						"description": "e.g. Facebook"
+						"description": "The name of the volunteer organization, e.g. 'American Red Cross'."
 					},
 					"position": {
 						"type": "string",
-						"description": "e.g. Software Engineer"
+						"description": "The title of the volunteer role, e.g. 'Customer Service Representative'."
 					},
 					"url": {
 						"type": "string",
-						"description": "e.g. http://facebook.example.com",
+						"description": "The relevant URL of the volunteer organization's homepage, e.g. 'http://redcross.example.com'.",
 						"format": "uri"
 					},
 					"startDate": {
+						"description": "The date on which this volunteer position was started.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
+						"description": "The date on which this volunteer position was stopped. If this job is ongoing, specify 'Present' as the value for this key.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"summary": {
 						"type": "string",
-						"description": "Give an overview of your responsibilities at the company"
+						"description": "An overview of the responsibilities at the volunteer organization. No more than 3-5 sentences."
 					},
 					"highlights": {
 						"type": "array",
-						"description": "Specify accomplishments and achievements",
+						"description": "A list of the key highlights of the volunteer role. For best results, use the XYZ formula with quantifiable attributes.",
 						"additionalItems": false,
 						"items": {
 							"type": "string",
-							"description": "e.g. Increased profits by 20% from 2011-2012 through viral advertising"
+							"description": "e.g. Increased profits by 20% from 2011-2012 through viral advertising."
 						}
+					},
+					"keywords": {
+						"description": "A list of keywords pertaining to this volunteer position.",
+						"$ref": "types.json#/definitions/keywords"
 					}
 				}
 			}
