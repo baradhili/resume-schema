@@ -1,0 +1,71 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema",
+	"$id": "https://raw.githubusercontent.com/jgilman1337/resume-schema/refs/heads/master/keywords-dictionary-schema.json",
+	"title": "Keywords Dictionary Schema",
+	"version": "2.0.0",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"categories": {
+			"type": "object",
+			"description": "Top-level categorization of a keyword, e.g. 'devops', 'saas'.",
+			"patternProperties": {
+				"^[a-zA-Z0-9_-]+$": {
+					"type": "object",
+					"properties": {
+						"displayName": {
+							"type": "string",
+							"description": "The display name of the category, e.g. 'Database', 'Programming Languages'."
+						},
+						"description": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"displayName"
+					],
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"keywordsDictionary": {
+			"type": "object",
+			"description": "Global keyword definitions map with metadata and category assignment.",
+			"patternProperties": {
+				"^[a-zA-Z0-9_-]+$": {
+					"type": "object",
+					"properties": {
+						"displayName": {
+							"type": "string",
+							"description": "The display name of the keyword, e.g. 'JavaScript', 'Amazon AWS'."
+						},
+						"aliases": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"description": "A list of aliases that can also map to this keyword, e.g. 'jscript', 'amazon_aws'."
+							}
+						},
+						"category": {
+							"type": "string",
+							"description": "Must match a category key from the top-level categories object."
+						}
+					},
+					"required": [
+						"displayName",
+						"category"
+					],
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"meta": {
+			"$ref": "types.json#/definitions/meta"
+		}
+	},
+	"required": [
+		"meta"
+	]
+}
