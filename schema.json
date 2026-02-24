@@ -20,7 +20,7 @@
 				},
 				"image": {
 					"type": "string",
-					"description": "URL (as per RFC 3986) to a image in JPEG or PNG format.",
+					"description": "URL (as per RFC 3986) to an image in JPEG or PNG format.",
 					"format": "uri"
 				},
 				"email": {
@@ -64,6 +64,7 @@
 		},
 		"work": {
 			"type": "array",
+			"description": "A list of past and present professional work done, sorted chronologically from latest to earliest.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -95,7 +96,7 @@
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
-						"description": "The date on which this position was stopped. If this job is ongoing, specify 'Present' as the value for this key.",
+						"description": "The date on which this position was stopped. If current and ongoing, specify a blank string as the value for this key.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"summary": {
@@ -120,6 +121,7 @@
 		},
 		"volunteer": {
 			"type": "array",
+			"description": "A list of past and present volunteer work done, sorted chronologically from latest to earliest.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -143,7 +145,7 @@
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
-						"description": "The date on which this volunteer position was stopped. If this job is ongoing, specify 'Present' as the value for this key.",
+						"description": "The date on which this volunteer position was stopped. If current and ongoing, specify a blank string as the value for this key.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"summary": {
@@ -168,6 +170,7 @@
 		},
 		"education": {
 			"type": "array",
+			"description": "A list of past and present institutions attended, sorted chronologically from latest to earliest.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -175,46 +178,130 @@
 				"properties": {
 					"institution": {
 						"type": "string",
-						"description": "e.g. Massachusetts Institute of Technology"
+						"description": "The name of the institution being attended, e.g. 'Massachusetts Institute of Technology'."
+					},
+					"subInstitution": {
+						"type": "string",
+						"description": "A specific college/school/department within the institution, e.g. 'College of Arts and Humanities'."
 					},
 					"url": {
 						"type": "string",
-						"description": "e.g. http://facebook.example.com",
+						"description": "The relevant URL of the institution's homepage, e.g. 'http://example.com.edu'.",
 						"format": "uri"
+					},
+					"subInstitutionUrl": {
+						"type": "string",
+						"description": "The relevant URL of the sub-institution's homepage, if different, e.g. 'https://example.com.edu/arts-humanities'.",
+						"format": "uri"
+					},
+					"location": {
+						"type": "string",
+						"description": "The location of the institution, e.g. 'Boston, MA'."
 					},
 					"area": {
 						"type": "string",
-						"description": "e.g. Arts"
+						"description": "The broad area of study, e.g. 'Engineering', 'Humanities'."
 					},
-					"studyType": {
-						"type": "string",
-						"description": "e.g. Bachelor"
+					"programs": {
+						"type": "array",
+						"description": "One or more programs/majors pursued at this institution. Each item includes a degree designation and a name.",
+						"minItems": 1,
+						"items": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"type": {
+									"type": "string",
+									"description": "The broad education type for this program.",
+									"enum": [
+										"Degree",
+										"Certificate",
+										"Diploma",
+										"Non-Degree",
+										"Professional",
+										"Other"
+									]
+								},
+								"designation": {
+									"type": "string",
+									"description": "The degree designation or abbreviation of it, e.g. 'Bachelor of Science/B.S.', 'Master of Arts/M.A.', 'Associate of Applied Science/A.A.S'."
+								},
+								"name": {
+									"type": "string",
+									"description": "Specific major/minor name, e.g. 'Computer Science', 'Economics'."
+								},
+								"concentration": {
+									"type": "string",
+									"description": "Concentration or track within the major/minor, if applicable, e.g., 'Artificial Intelligence'."
+								},
+								"minor": {
+									"type": "boolean",
+									"description": "Indicates if this program is a minor rather than a major."
+								},
+								"gpa": {
+									"type": "string",
+									"description": "The cumulative grade point average (GPA) for this program, e.g. '3.67/4.0'."
+								},
+								"honors": {
+									"type": "string",
+									"description": "Honors or distinctions associated with this program, e.g., 'Summa Cum Laude'."
+								}
+							},
+							"required": [
+								"name",
+								"type"
+							]
+						}
 					},
 					"startDate": {
+						"description": "The date on which the education at this institution was started.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
+						"description": "The date on which the education at this institution was stopped. If current and ongoing, specify a blank string as the value for this key.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
-					"score": {
+					"gpa": {
 						"type": "string",
-						"description": "grade point average, e.g. 3.67/4.0"
+						"description": "The cumulative grade point average (GPA), e.g. '3.67/4.0'."
 					},
 					"courses": {
 						"type": "array",
-						"description": "List notable courses/subjects",
+						"description": "A list of relevant courses/subjects.",
 						"additionalItems": false,
 						"items": {
 							"type": "string",
-							"description": "e.g. H1302 - Introduction to American history"
+							"description": "The course id/code and name, e.g. 'H1302 - Introduction to American History'."
 						}
+					},
+					"awards": {
+						"type": "array",
+						"description": "Awards or honors earned for this program, e.g. 'Dean's List', 'Graduated with Honors'.",
+						"items": {
+							"type": "string"
+						}
+					},
+					"extracurriculars": {
+						"type": "array",
+						"description": "A list of relevant extracurricular activities participated in while a student at the institution, e.g. 'Bird Watching Club', 'Association of Computing Machinery'.",
+						"items": {
+							"type": "string"
+						}
+					},
+					"keywords": {
+						"description": "A list of keywords pertaining to this education.",
+						"$ref": "types.json#/definitions/keywords"
+					},
+					"notes": {
+						"type": "string",
+						"description": "Optional free-text notes, e.g. 'part-time study', 'transfer credits'."
 					}
 				}
 			}
 		},
 		"awards": {
 			"type": "array",
-			"description": "Specify any awards you have received throughout your professional career",
+			"description": "A list of awards and distinctions received, sorted chronologically from latest to earliest.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -222,25 +309,29 @@
 				"properties": {
 					"title": {
 						"type": "string",
-						"description": "e.g. One of the 100 greatest minds of the century"
+						"description": "The title of the award, e.g. 'Nobel Peace Prize'."
 					},
 					"date": {
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"awarder": {
 						"type": "string",
-						"description": "e.g. Time Magazine"
+						"description": "The organization or entity that conferred the award, e.g. 'Time Magazine'."
 					},
 					"summary": {
 						"type": "string",
-						"description": "e.g. Received for my work with Quantum Physics"
+						"description": "A short 1-2 sentence description of the award, e.g. 'Received for my work with Quantum Physics'."
+					},
+					"keywords": {
+						"description": "A list of keywords pertaining to this award.",
+						"$ref": "types.json#/definitions/keywords"
 					}
 				}
 			}
 		},
 		"certificates": {
 			"type": "array",
-			"description": "Specify any certificates you have received throughout your professional career",
+			"description": "A list of certificates awarded, sorted chronologically from latest to earliest.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -248,26 +339,35 @@
 				"properties": {
 					"name": {
 						"type": "string",
-						"description": "e.g. Certified Kubernetes Administrator"
+						"description": "The title of the certificate, e.g. 'Certified Kubernetes Administrator'."
 					},
 					"date": {
+						"description": "The date the certificate was issued.",
 						"$ref": "types.json#/definitions/iso8601"
-					},
-					"url": {
-						"type": "string",
-						"description": "e.g. http://example.com",
-						"format": "uri"
 					},
 					"issuer": {
 						"type": "string",
-						"description": "e.g. CNCF"
+						"description": "The organization or entity that awarded the certificate, e.g. 'CNCF'."
+					},
+					"url": {
+						"type": "string",
+						"description": "The relevant URL of the awarding organization's homepage, e.g. 'http://example.com'.",
+						"format": "uri"
+					},
+					"id": {
+						"type": "string",
+						"description": "The ID number of the certificate for verification purposes, if applicable."
+					},
+					"keywords": {
+						"description": "A list of keywords pertaining to this certificate.",
+						"$ref": "types.json#/definitions/keywords"
 					}
 				}
 			}
 		},
 		"publications": {
 			"type": "array",
-			"description": "Specify your publications through your career",
+			"description": "A list of past and present publications made, sorted chronologically from latest to earliest.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -275,13 +375,14 @@
 				"properties": {
 					"name": {
 						"type": "string",
-						"description": "e.g. The World Wide Web"
+						"description": "The name of the publication, e.g. 'The World Wide Web'."
 					},
 					"publisher": {
 						"type": "string",
-						"description": "e.g. IEEE, Computer Magazine"
+						"description": "The name of the organization or entity that published the publication, e.g. 'IEEE, Computer Magazine'."
 					},
 					"releaseDate": {
+						"description": "The date of the publication.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"url": {
@@ -291,14 +392,18 @@
 					},
 					"summary": {
 						"type": "string",
-						"description": "Short summary of publication. e.g. Discussion of the World Wide Web, HTTP, HTML."
+						"description": "A short summary of publication, e.g. 'Discussion of the World Wide Web, HTTP, HTML'."
+					},
+					"keywords": {
+						"description": "A list of keywords pertaining to this publication.",
+						"$ref": "types.json#/definitions/keywords"
 					}
 				}
 			}
 		},
 		"skills": {
 			"type": "array",
-			"description": "List out your professional skill-set",
+			"description": "A list of professional skills, including their mastery level.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -306,11 +411,11 @@
 				"properties": {
 					"name": {
 						"type": "string",
-						"description": "e.g. Web Development"
+						"description": "The name of the skill, e.g. 'Web Development'."
 					},
 					"level": {
-						"type": "string",
-						"description": "e.g. Master"
+						"description": "The experience level of the skill, e.g. 'Senior', 'Junior', 'Mid-level'.",
+						"$ref": "types.json#/definitions/experienceLevel"
 					},
 					"keywords": {
 						"description": "A list of keywords pertaining to this skill.",
@@ -321,7 +426,7 @@
 		},
 		"languages": {
 			"type": "array",
-			"description": "List any other languages you speak",
+			"description": "A list of languages spoken and/or written.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -333,13 +438,21 @@
 					},
 					"fluency": {
 						"type": "string",
-						"description": "e.g. Fluent, Beginner"
+						"description": "The proficiency in utilizing this language according to the CEFR.",
+						"enum": [
+							"Beginner",
+							"Intermediate",
+							"Advanced",
+							"Proficient",
+							"Native"
+						]
 					}
 				}
 			}
 		},
 		"interests": {
 			"type": "array",
+			"description": "A list of personal interests that lie outside one's professional work (i.e. hobbies).",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -347,7 +460,7 @@
 				"properties": {
 					"name": {
 						"type": "string",
-						"description": "e.g. Philosophy"
+						"description": "The name of the interest, e.g. 'Philosophy'."
 					},
 					"keywords": {
 						"description": "A list of keywords pertaining to this interest.",
@@ -358,7 +471,7 @@
 		},
 		"references": {
 			"type": "array",
-			"description": "List references you have received",
+			"description": "A list of references/letters of recommendation received.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -366,7 +479,7 @@
 				"properties": {
 					"name": {
 						"type": "string",
-						"description": "e.g. Timothy Cook"
+						"description": "The person who wrote the reference, e.g. 'Timothy Cook'."
 					},
 					"reference": {
 						"type": "string",
@@ -377,7 +490,7 @@
 		},
 		"projects": {
 			"type": "array",
-			"description": "Specify career projects",
+			"description": "A list of past and present professional or personal projects done, sorted chronologically from latest to earliest.",
 			"additionalItems": false,
 			"items": {
 				"type": "object",
@@ -385,19 +498,19 @@
 				"properties": {
 					"name": {
 						"type": "string",
-						"description": "e.g. The World Wide Web"
+						"description": "The name of the project, e.g. 'The World Wide Web'."
 					},
 					"description": {
 						"type": "string",
-						"description": "Short summary of project. e.g. Collated works of 2017."
+						"description": "A short summary of project in 1-3 sentences. e.g. 'Collated works of 2017'."
 					},
 					"highlights": {
 						"type": "array",
-						"description": "Specify multiple features",
+						"description": "A list of the key highlights of the project. For best results, use the XYZ formula with quantifiable attributes.",
 						"additionalItems": false,
 						"items": {
 							"type": "string",
-							"description": "e.g. Directs you close but not quite there"
+							"description": "e.g. Increased profits by 20% from 2011-2012 through viral advertising."
 						}
 					},
 					"keywords": {
@@ -405,9 +518,11 @@
 						"$ref": "types.json#/definitions/keywords"
 					},
 					"startDate": {
+						"description": "The date on which work on this project was started.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"endDate": {
+						"description": "The date on which work on this project was stopped. If current and ongoing, specify a blank string as the value for this key.",
 						"$ref": "types.json#/definitions/iso8601"
 					},
 					"url": {
@@ -417,7 +532,7 @@
 					},
 					"roles": {
 						"type": "array",
-						"description": "Specify your role on this project or in company",
+						"description": "A list of the roles taken on during the development of the project.",
 						"additionalItems": false,
 						"items": {
 							"type": "string",
@@ -426,7 +541,7 @@
 					},
 					"entity": {
 						"type": "string",
-						"description": "Specify the relevant company/entity affiliations e.g. 'greenpeace', 'corporationXYZ'"
+						"description": "The relevant company/entity affiliations, if any, e.g. 'greenpeace', 'corporationXYZ'."
 					},
 					"type": {
 						"type": "string",
