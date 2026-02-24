@@ -276,14 +276,43 @@
 					},
 					"awards": {
 						"type": "array",
+						"additionalItems": false,
 						"description": "Awards or honors earned for this program, e.g. 'Dean's List', 'Graduated with Honors'.",
 						"items": {
 							"type": "string"
 						}
 					},
+					"honorSocieties": {
+						"type": "array",
+						"description": "A list of honor societies inducted into during the completion of education at this institution.",
+						"additionalItems": false,
+						"items": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"name": {
+									"type": "string",
+									"description": "The name of the honor society, e.g. 'Phi Beta Kappa'."
+								},
+								"chapter": {
+									"type": "string",
+									"description": "The specific chapter of the honor society, if applicable, e.g. 'Omega'."
+								},
+								"memberId": {
+									"type": "string",
+									"description": "The relevant membership ID, if applicable."
+								},
+								"inductionDate": {
+									"description": "The date of induction into the honor society.",
+									"$ref": "types.json#/definitions/iso8601"
+								}
+							}
+						}
+					},
 					"extracurriculars": {
 						"type": "array",
 						"description": "A list of relevant extracurricular activities participated in while a student at the institution, e.g. 'Bird Watching Club', 'Association of Computing Machinery'.",
+						"additionalItems": false,
 						"items": {
 							"type": "string"
 						}
