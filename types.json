@@ -104,7 +104,10 @@
 					"description": "Using ISO 8601 with 'YYYY-MM-DDThh:mm:ss'.",
 					"format": "date-time"
 				}
-			}
+			},
+			"required": [
+				"version"
+			]
 		}
 	}
 }
