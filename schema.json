@@ -443,8 +443,8 @@
 						"description": "The name of the skill, e.g. 'Web Development'."
 					},
 					"level": {
-						"description": "The experience level of the skill, e.g. 'Senior', 'Junior', 'Mid-level'.",
-						"$ref": "types.json#/definitions/experienceLevel"
+						"description": "The experience level of the skill, e.g. 'Novice', 'Intermediate', 'Advanced', etc.",
+						"$ref": "types.json#/definitions/masteryLevel"
 					},
 					"keywords": {
 						"description": "A list of keywords pertaining to this skill.",

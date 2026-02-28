@@ -1,8 +1,7 @@
 {
-	"$schema": "http://json-schema.org/draft-04/schema#",
 	"title": "Web Developer",
 	"company": "Microsoft",
-	"type": "Full-time",
+	"type": "Full-Time",
 	"date": "2024-07",
 	"description": "We are looking for a skilled Web Developer to join our team. The role involves building and maintaining web applications.",
 	"location": {
@@ -50,7 +49,7 @@
 	],
 	"meta": {
 		"canonical": "http://example.com/jobs/web-developer",
-		"version": "v1.0.0",
-		"lastModified": "2024-07-10T15:00:00"
+		"version": "1.0.0",
+		"lastModified": "2026-02-27T00:00:00.000Z"
 	}
 }

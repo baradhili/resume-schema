@@ -1,12 +1,10 @@
 {
-	"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
 	"basics": {
 		"name": "Richard Hendriks",
 		"label": "Programmer",
 		"image": "",
 		"email": "richard.hendriks@mail.com",
 		"phone": "(912) 555-4321",
-		"url": "http://richardhendricks.example.com",
 		"summary": "Richard hails from Tulsa. He has earned degrees from the University of Oklahoma and Stanford. (Go Sooners and Cardinal!) Before starting Pied Piper, he worked for Hooli as a part time software developer. While his work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants, his non-work interests range widely, everything from quantum computing to chaos theory. He could tell you about it, but THAT would NOT be a “length-limited” conversation!",
 		"location": {
 			"address": "2712 Broadway St",
@@ -15,22 +13,20 @@
 			"countryCode": "US",
 			"region": "California"
 		},
-		"profiles": [
+		"links": [
 			{
-				"network": "Twitter",
-				"username": "neutralthoughts",
-				"url": "https://www.twitter.com"
+				"url": "https://www.twitter.com/neutralthoughts",
+				"label": "@neutralthoughts"
 			},
 			{
-				"network": "SoundCloud",
-				"username": "dandymusicnl",
-				"url": "https://soundcloud.example.com/dandymusicnl"
+				"url": "https://soundcloud.example.com/dandymusicnl",
+				"label": "@dandymusicnl"
 			}
 		]
 	},
 	"work": [
 		{
-			"name": "Pied Piper",
+			"employer": "Pied Piper",
 			"location": "Palo Alto, CA",
 			"description": "Awesome compression company",
 			"position": "CEO/President",
@@ -63,10 +59,16 @@
 			"institution": "University of Oklahoma",
 			"url": "https://www.ou.edu/",
 			"area": "Information Technology",
-			"studyType": "Bachelor",
 			"startDate": "2011-06-01",
 			"endDate": "2014-01-01",
-			"score": "4.0",
+			"programs": [
+				{
+					"type": "Degree",
+					"designation": "Bachelor of Science/B.S.",
+					"name": "Information Technology",
+					"gpa": "4.0"
+				}
+			],
 			"courses": [
 				"DB1101 - Basic SQL",
 				"CS2011 - Java Introduction"
@@ -93,7 +95,7 @@
 	"skills": [
 		{
 			"name": "Web Development",
-			"level": "Master",
+			"level": "Advanced",
 			"keywords": [
 				"HTML",
 				"CSS",
@@ -102,7 +104,7 @@
 		},
 		{
 			"name": "Compression",
-			"level": "Master",
+			"level": "Intermediate",
 			"keywords": [
 				"Mpeg",
 				"MP4",
@@ -113,7 +115,7 @@
 	"languages": [
 		{
 			"language": "English",
-			"fluency": "Native speaker"
+			"fluency": "Native"
 		}
 	],
 	"interests": [
@@ -158,7 +160,7 @@
 	],
 	"meta": {
 		"canonical": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/sample.resume.json",
-		"version": "v1.0.0",
-		"lastModified": "2017-12-24T15:53:00"
+		"version": "1.0.0",
+		"lastModified": "2026-02-27T00:00:00.000Z"
 	}
 }
