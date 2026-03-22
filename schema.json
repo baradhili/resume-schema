@@ -525,6 +525,10 @@
 				"type": "object",
 				"additionalProperties": false,
 				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The ID number of the project for cross-referencing purposes."
+					},
 					"name": {
 						"type": "string",
 						"description": "The name of the project, e.g. 'The World Wide Web'."

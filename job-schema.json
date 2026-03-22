@@ -56,6 +56,15 @@
 				"description": "e.g. Build out a new API for our customer base."
 			}
 		},
+		"crossReferencedProjects": {
+			"type": "array",
+			"description": "A list of the IDs of the projects that are cross-referenced with this job. Particularly useful for consulting roles.",
+			"additionalItems": false,
+			"items": {
+				"type": "string",
+				"description": "The ID number of the project for cross-referencing purposes."
+			}
+		},
 		"qualifications": {
 			"type": "array",
 			"description": "A list of the qualifications that are required for this position.",
