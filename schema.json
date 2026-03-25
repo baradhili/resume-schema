@@ -112,6 +112,15 @@
 							"description": "e.g. Increased profits by 20% from 2011-2012 through viral advertising."
 						}
 					},
+					"crossReferencedProjects": {
+						"type": "array",
+						"description": "A list of the IDs of the projects that are cross-referenced with this job. Particularly useful for consulting roles.",
+						"additionalItems": false,
+						"items": {
+							"type": "string",
+							"description": "The ID number of the project for cross-referencing purposes."
+						}
+					},
 					"keywords": {
 						"description": "A list of keywords pertaining to this job position.",
 						"$ref": "types.json#/definitions/keywords"
